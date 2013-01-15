@@ -20,7 +20,12 @@ class Player
     self.name = player_name
     self.points = 0
   end
-
+    
+  def move(score)
+      @points += SCORING_RULES[score]
+      return SCORING_RULES[score]
+  end
+  
 end
 
 class TestPlayer < Test::Unit::TestCase

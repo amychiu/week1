@@ -11,10 +11,19 @@ require "test/unit"
 SCORING_RULES = { 1 => 1, 2 => 2, 3 => 4, 4 => 7, 5 => 10, 6 => 15 }
 
 # CHANGE THIS CODE TO MAKE THE TESTS PASS
-def calculate_points_from_moves
+
+def calculate_points_from_moves(moves)
+    totalPoints=0
+    for points in moves
+        totalPoints += SCORING_RULES[points]
+    end
+    return totalPoints
 end
 
 def calculate_points_for_player(player, data)
+    personMoves = data[player]
+    points=calculate_points_from_moves(personMoves)
+    return points    
 end
 
 # ----------------------------------------------------------
@@ -25,8 +34,9 @@ class TestCalculations < Test::Unit::TestCase
     moves = [3, 5, 1, 2, 4, 6, 1]
     points = calculate_points_from_moves(moves)
 
-    assert_equal 40, points
+          assert_equal 40, points
   end
+
 
   def test_calculate_points_for_player
     player_data = {
@@ -37,5 +47,6 @@ class TestCalculations < Test::Unit::TestCase
     points_for_bob = calculate_points_for_player(:bob, player_data)
     assert_equal 7, points_for_bob
   end
+
 
 end
